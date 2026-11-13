@@ -109,3 +109,28 @@ function showFiltredTodos() {
         console.log("Ошибка", err);
     })
 }
+
+async function sortPostsAsync() {
+    try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts")
+        if (!response.ok) {
+            throw new Error(`HTTP Error! sry. Status: ${response.status}`);
+        }
+        const posts = await response.json();
+        const sortedPosts = posts.sort((a, b) => b.title.length - a.title.length);
+        return sortedPosts; 
+    }
+    catch(e) {
+        console.log("Ошибка", e.message);
+        throw e;
+    };
+}
+
+function showSortedAsyncPosts() {
+    sortPostsAsync()
+    .then(posts => {
+        console.log(posts);
+    })
+    .catch(err => console.log(err));
+}
+
