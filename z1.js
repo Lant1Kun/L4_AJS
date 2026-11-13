@@ -181,3 +181,26 @@ function showAsyncFiltredUsers() {
     })
     .catch(err => console.log(err));
 }
+
+async function filterAsyncTodos() {
+    try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/todos");
+        if (!response.ok) {
+            console.log('Server error occured sry kys', response.status);
+        }
+        const todos = await response.json();
+        const filtredTodos = todos.filter(el => el.completed === false);
+        return filtredTodos;
+    } catch(e) {
+        console.log("Ошибка", e.message);
+        throw e;
+    }
+}
+
+function showAsyncFiltredTodos() {
+    filterAsyncTodos()
+    .then(todos => {
+        console.log(todos);
+    })
+    .catch(err => console.log(err));
+}
