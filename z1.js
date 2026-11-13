@@ -159,3 +159,25 @@ function showSortedAsyncComments() {
     .catch(err => console.log(err));
 }
 
+async function filterAsyncUsers() {
+    try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/users");
+        if (!response.ok) {
+            console.log('Server error occured sry kys', response.status);
+        }
+        const users = await response.json();
+        const filtredUsers = users.map(({ id, name, username, email, phone}) => ({ id, name, username, email, phone}));
+        return filtredUsers;
+    } catch(e) {
+        console.log("Ошибка", e.message);
+        throw e;
+    }
+}
+
+function showAsyncFiltredUsers() {
+    filterAsyncUsers()
+    .then(users => {
+        console.log(users);
+    })
+    .catch(err => console.log(err));
+}
