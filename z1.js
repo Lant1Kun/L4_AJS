@@ -27,3 +27,35 @@ function showSortedPosts() {
         }
     })
 }
+
+
+
+function sortedComments(callback) {
+    fetch("https://jsonplaceholder.typicode.com/comments")
+    .then(response => {
+        if (!response.ok) {
+            console.log('Server error occured sry kys', response.status);
+        }
+        return response.json();
+    })
+    .then(comments => {
+        const sortedComments = comments.sort((a, b) => a.name.localeCompare(b.name));
+        callback(sortedComments, null);
+    })
+    .catch(e => {
+        callback(null, e);
+    })
+}
+function showSortedCommnts() {
+    sortedComments((comments, err) => {
+        if (err) {
+            console.log('Ошибка ', err);
+            return;
+        } else {
+            console.log('Отсортированные comments');
+            comments.forEach(el => {
+                console.log(el);
+            })
+        }
+    })
+}
