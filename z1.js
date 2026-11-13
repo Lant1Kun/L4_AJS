@@ -59,3 +59,28 @@ function showSortedCommnts() {
         }
     })
 }
+
+
+function filterUsers() {
+    return fetch('https://jsonplaceholder.typicode.com/users')
+        .then(response => {
+            if (!response.ok) {
+                console.log('Server error occured sry kys', response.status);
+            }
+            return response.json();
+        })
+        .then(users => {
+            const filtredUsers = users.map(({ id, name, username, email, phone}) => ({ id, name, username, email, phone}));
+            return filtredUsers;
+        })
+}
+function showFilterUsers() {
+    filterUsers()
+        .then(users => {
+            console.log('Данные users');
+            console.log(users);
+        })
+        .catch(err => {
+            console.log('Ошибка', err);
+        }) 
+}
