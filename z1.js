@@ -134,3 +134,28 @@ function showSortedAsyncPosts() {
     .catch(err => console.log(err));
 }
 
+
+async function sortAsyncComments() {
+    try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/comments");
+        if (!response.ok) {
+            console.log('Server error occured sry kys', response.status);
+        }
+        const comms = await response.json();
+        const sortedComms = comms.sort((a, b) => a.name.localeCompare(b.name));
+        return sortedComms;
+    }
+    catch(e) {
+        console.log("Ошибка", e.message);
+        throw e;
+    }
+}
+
+function showSortedAsyncComments() {
+    sortAsyncComments()
+    .then(comms => {
+        console.log(comms);
+    })
+    .catch(err => console.log(err));
+}
+
