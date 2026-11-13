@@ -84,3 +84,28 @@ function showFilterUsers() {
             console.log('Ошибка', err);
         }) 
 }
+
+
+function filterTodos() {
+    return fetch('https://jsonplaceholder.typicode.com/todos')
+    .then(response => {
+        if (!response.ok) {
+            console.log('Server error occured sry kys', response.status);
+        }   
+        return response.json();     
+    })
+    .then(todos => {
+        const filtredTodos = todos.filter(el => el.completed === false);
+        return filtredTodos;
+    })
+}
+function showFiltredTodos() {
+    filterTodos()
+    .then(todos => {
+        console.log("Все todos где поле completed = false");
+        console.log(todos);
+    })
+    .catch(err => {
+        console.log("Ошибка", err);
+    })
+}
